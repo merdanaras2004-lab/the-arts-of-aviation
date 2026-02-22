@@ -6,28 +6,23 @@
 <title>The Arts of Aviation</title>
 
 <style>
-body {
+body{
     margin:0;
-    font-family: Arial, sans-serif;
-    background:#0f172a;
-    color:white;
+    font-family:Arial, sans-serif;
+    background:white;
+    color:#0f172a;
     scroll-behavior:smooth;
 }
 
-nav {
+nav{
     display:flex;
     justify-content:space-between;
     padding:20px 40px;
-    background:#020617;
-    position:sticky;
-    top:0;
+    background:#0f172a;
+    color:white;
 }
 
-nav button {
-    margin-left:10px;
-}
-
-button {
+button{
     padding:10px 20px;
     border:none;
     border-radius:8px;
@@ -35,17 +30,17 @@ button {
     font-weight:bold;
 }
 
-.primary {
-    background:white;
-    color:#0f172a;
+.primary{
+    background:#0f172a;
+    color:white;
 }
 
-.section {
+.section{
     padding:100px 20px;
     text-align:center;
 }
 
-.gallery {
+.gallery{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
@@ -53,34 +48,16 @@ button {
     margin:auto;
 }
 
-img {
+img{
     width:100%;
     border-radius:10px;
 }
 
-form {
-    max-width:300px;
-    margin:auto;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-input {
-    padding:10px;
-    border-radius:6px;
-    border:none;
-}
-
-.hidden {
-    display:none;
-}
-
-footer {
+footer{
     padding:30px;
-    background:#020617;
+    background:#0f172a;
     text-align:center;
-    color:#64748b;
+    color:white;
 }
 </style>
 </head>
@@ -89,23 +66,19 @@ footer {
 
 <nav>
 <div><strong>The Arts of Aviation</strong></div>
-<div id="authButtons">
-    <button class="primary" onclick="showSignup()">Sign Up</button>
-    <button onclick="showLogin()">Login</button>
-</div>
-<div id="userSection" class="hidden">
-    Welcome, <span id="usernameDisplay"></span>
-    <button onclick="logout()">Logout</button>
+<div>
+    <a href="history.html">
+        <button class="primary">Explore Aviation’s History</button>
+    </a>
 </div>
 </nav>
 
 <div class="section">
 <h1>Where Engineering Meets Art</h1>
 <p>Discover the beauty, emotion and design behind the world of flight.</p>
-<button class="primary" onclick="scrollToGallery()">Explore Gallery</button>
 </div>
 
-<div class="section" id="gallery">
+<div class="section">
 <h2>Visual Poetry of Flight</h2>
 <div class="gallery">
 <img src="https://source.unsplash.com/600x400/?airplane">
@@ -115,107 +88,9 @@ footer {
 </div>
 </div>
 
-<div class="section hidden" id="signupSection">
-<h2>Create Account</h2>
-<form onsubmit="signup(event)">
-<input type="text" id="signupUsername" placeholder="Username" required>
-<input type="password" id="signupPassword" placeholder="Password" required>
-<button class="primary" type="submit">Register</button>
-</form>
-</div>
-
-<div class="section hidden" id="loginSection">
-<h2>Login</h2>
-<form onsubmit="login(event)">
-<input type="text" id="loginUsername" placeholder="Username" required>
-<input type="password" id="loginPassword" placeholder="Password" required>
-<button class="primary" type="submit">Login</button>
-</form>
-</div>
-
 <footer>
 © 2026 The Arts of Aviation
 </footer>
-
-<script>
-
-// Scroll
-function scrollToGallery(){
-    document.getElementById("gallery").scrollIntoView();
-}
-
-// Show Sections
-function showSignup(){
-    hideForms();
-    document.getElementById("signupSection").classList.remove("hidden");
-}
-
-function showLogin(){
-    hideForms();
-    document.getElementById("loginSection").classList.remove("hidden");
-}
-
-function hideForms(){
-    document.getElementById("signupSection").classList.add("hidden");
-    document.getElementById("loginSection").classList.add("hidden");
-}
-
-// Signup
-function signup(e){
-    e.preventDefault();
-    const username=document.getElementById("signupUsername").value;
-    const password=document.getElementById("signupPassword").value;
-
-    localStorage.setItem("user",JSON.stringify({username,password}));
-    localStorage.setItem("loggedIn","true");
-
-    alert("Account created!");
-    updateUI();
-}
-
-// Login
-function login(e){
-    e.preventDefault();
-    const username=document.getElementById("loginUsername").value;
-    const password=document.getElementById("loginPassword").value;
-
-    const storedUser=JSON.parse(localStorage.getItem("user"));
-
-    if(storedUser && storedUser.username===username && storedUser.password===password){
-        localStorage.setItem("loggedIn","true");
-        updateUI();
-    }else{
-        alert("Incorrect credentials");
-    }
-}
-
-// Logout
-function logout(){
-    localStorage.removeItem("loggedIn");
-    updateUI();
-}
-
-// Update UI
-function updateUI(){
-    const loggedIn=localStorage.getItem("loggedIn");
-    const user=JSON.parse(localStorage.getItem("user"));
-
-    if(loggedIn==="true" && user){
-        document.getElementById("authButtons").classList.add("hidden");
-        document.getElementById("userSection").classList.remove("hidden");
-        document.getElementById("usernameDisplay").innerText=user.username;
-    }else{
-        document.getElementById("authButtons").classList.remove("hidden");
-        document.getElementById("userSection").classList.add("hidden");
-    }
-
-    hideForms();
-}
-
-// Check on page load
-updateUI();
-
-</script>
 
 </body>
 </html>
